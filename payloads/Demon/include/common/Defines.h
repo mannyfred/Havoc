@@ -108,6 +108,7 @@
 #define H_FUNC_RTLSUBAUTHORITYSID                    0x90ed208a
 #define H_FUNC_RTLSUBAUTHORITYCOUNTSID               0x4b23c9d3
 
+#define H_FUNC_GETLOGICALDRIVES                      0x5b0d956d
 #define H_FUNC_LOADLIBRARYW                          0xb7072ff1
 #define H_FUNC_GETCOMPUTERNAMEEXA                    0xec725c53
 #define H_FUNC_WAITFORSINGLEOBJECTEX                 0x512e1b97

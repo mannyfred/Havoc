@@ -2830,13 +2830,14 @@ func (a *Agent) TaskDispatch(RequestID uint32, CommandID uint32, Parser *parser.
 			switch SubCommand {
 			case DEMON_COMMAND_FS_DIR:
 				logger.Debug(fmt.Sprintf("Agent: %x, Command: COMMAND_FS - DEMON_COMMAND_FS_DIR", AgentID))
-				if Parser.CanIRead([]parser.ReadType{parser.ReadBool, parser.ReadBool, parser.ReadBytes, parser.ReadBool}) {
+				if Parser.CanIRead([]parser.ReadType{parser.ReadBool, parser.ReadBool, parser.ReadBytes, parser.ReadBool, parser.ReadInt32}) {
 
 					var (
 						Explorer  = Parser.ParseBool()
 						ListOnly  = Parser.ParseBool()
 						StartPath = Parser.ParseUTF16String()
 						Success   = Parser.ParseBool()
+						Drives	  = Parser.ParseInt32()
 						ReadOne   = false
 						Dir       string
 						DirMap    = make(map[string]any)
@@ -2941,6 +2942,7 @@ func (a *Agent) TaskDispatch(RequestID uint32, CommandID uint32, Parser *parser.
 							if Explorer {
 								DirMap["Path"] = []byte(RootDirPath)
 								DirMap["Files"] = DirArr
+								DirMap["Drives"] = Drives
 
 								DirJson, err := json.Marshal(DirMap)
 								if err != nil {
