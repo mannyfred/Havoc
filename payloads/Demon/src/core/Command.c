@@ -698,6 +698,7 @@ VOID CommandFS( PPARSER Parser )
             PDIR_OR_FILE     DirOrFile    = NULL;
             PDIR_OR_FILE     TmpDirOrFile = NULL;
             UINT32           PathSize     = NULL;
+            UINT32           Drives       = NULL;
 
             FileExplorer = ParserGetBool( Parser );
             TargetFolder = ParserGetWString( Parser, NULL );
@@ -717,6 +718,8 @@ VOID CommandFS( PPARSER Parser )
 
             if ( TargetFolder[ 0 ] == L'.' )
             {
+                Drives = Instance->Win32.GetLogicalDrives();
+
                 if ( ! Instance->Win32.GetCurrentDirectoryW( MAX_PATH, Path ) )
                 {
                     PRINTF( "Failed to get current dir: %d\n", NtGetLastError() );
@@ -749,6 +752,7 @@ VOID CommandFS( PPARSER Parser )
             PackageAddBool( Package, ListOnly );
             PackageAddWString( Package, Path );
             PackageAddBool( Package, RootDir ? TRUE : FALSE );
+            PackageAddInt32( Package, Drives );
 
             while ( RootDir )
             {

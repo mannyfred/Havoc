@@ -161,6 +161,7 @@ void FileBrowser::AddData( QJsonDocument JsonData )
     auto Path  = QString();
     auto Files = QJsonDocument();
     auto Data  = FileDirData();
+    auto Drives = uint( 0 );
 
     if ( ! JsonData[ "Path" ].isString() )
     {
@@ -171,6 +172,12 @@ void FileBrowser::AddData( QJsonDocument JsonData )
     if ( ! JsonData[ "Files" ].isArray() )
     {
         spdlog::error( "[FileBrowser::AddData] Files is not an array" );
+        return;
+    }
+
+    if ( ! JsonData[ "Drives" ].isDouble() )
+    {
+        spdlog::error( "[FileBrowser::AddData] Drives is not an uint" );
         return;
     }
 
@@ -191,6 +198,24 @@ void FileBrowser::AddData( QJsonDocument JsonData )
             .Path = Path,
             .Data = Files
     };
+
+    Drives = JsonData[ "Drives" ].toDouble();
+
+    if ( Drives != 0 )
+    {
+        auto mask = uint( 0 );
+
+        for ( char i = 'A'; i <= 'Z'; i++ )
+        {
+            mask = 1 << ( i - 'A' );
+
+            if ( Drives & mask )
+            {
+                char Drive[4] = { i, ':', '\\', '\0' };
+                Data.Drives.push_back( Drive );
+            }
+        }
+    }
 
     if ( Files.isArray() )
     {
@@ -450,15 +475,13 @@ void FileBrowser::TreeUpdate()
                 Split.removeAt( i );
         }
 
+        for ( auto& Drive : Data.Drives )
+        {
+            TreeAddDisk( Drive );
+        }
+
         for ( int i = 0; i < Split.size(); i++ )
         {
-            if ( i == 0 )
-            {
-                TreeAddDisk( Split[ i ] + "\\" );
-                continue;
-            }
-
-
             auto Parent = JoinAtIndex( Split, i, "\\" );
             auto Item   = new FileBrowserTreeItem;
 

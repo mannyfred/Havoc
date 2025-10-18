@@ -223,6 +223,7 @@ typedef struct
         PVOID NtTraceEvent;
 
         // Kernel32
+        WIN_FUNC( GetLogicalDrives )
         WIN_FUNC( LoadLibraryW )
         WIN_FUNC( CreateRemoteThread )
         WIN_FUNC( CreateToolhelp32Snapshot )

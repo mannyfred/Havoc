@@ -35,6 +35,7 @@ typedef struct _FileDirData
     QString               Path;
     QJsonDocument         Data;
     std::vector<FileData> Files;
+    std::vector<QString>  Drives;
 } FileDirData;
 
 class FileBrowserTableItem : public QTableWidgetItem
