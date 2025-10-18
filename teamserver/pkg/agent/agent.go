@@ -1246,7 +1246,7 @@ func getWindowsVersionString(OsVersion []int) string {
 		WinVersion = "Windows 2022 Server 22H2"
 	} else if OsVersion[0] == 10 && OsVersion[1] == 0 && OsVersion[2] != 0x0000001 && OsVersion[4] == 17763 {
 		WinVersion = "Windows 2019 Server"
-	} else if OsVersion[0] == 10 && OsVersion[1] == 0 && OsVersion[2] == 0x0000001 && (OsVersion[4] >= 22000 && OsVersion[4] <= 22621) {
+	} else if OsVersion[0] == 10 && OsVersion[1] == 0 && OsVersion[2] == 0x0000001 && OsVersion[4] >= 22000 {
 		WinVersion = "Windows 11"
 	} else if OsVersion[0] == 10 && OsVersion[1] == 0 && OsVersion[2] != 0x0000001 {
 		WinVersion = "Windows 2016 Server"
