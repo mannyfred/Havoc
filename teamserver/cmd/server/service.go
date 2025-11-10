@@ -24,6 +24,6 @@ func (t *Teamserver) ServiceAgentExist(MagicValue int) bool {
 		}
 	}
 
-	logger.Debug("Service agent not found")
+	logger.Debug(fmt.Sprintf("Service agent not found: 0x%X", MagicValue))
 	return false
 }
