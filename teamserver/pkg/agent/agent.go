@@ -1242,14 +1242,16 @@ func (agents *Agents) AgentsAppend(demon *Agent) []*Agent {
 func getWindowsVersionString(OsVersion []int) string {
 	var WinVersion = "Unknown"
 
-	if OsVersion[0] == 10 && OsVersion[1] == 0 && OsVersion[2] != 0x0000001 && OsVersion[4] == 20348 {
-		WinVersion = "Windows 2022 Server 22H2"
+	if OsVersion[0] == 10 && OsVersion[1] == 0 && OsVersion[2] != 0x0000001 && OsVersion[4] == 26100 {
+		WinVersion = "Windows Server 2025"
+	} else if OsVersion[0] == 10 && OsVersion[1] == 0 && OsVersion[2] != 0x0000001 && OsVersion[4] == 20348 {
+		WinVersion = "Windows Server 2022" 
 	} else if OsVersion[0] == 10 && OsVersion[1] == 0 && OsVersion[2] != 0x0000001 && OsVersion[4] == 17763 {
-		WinVersion = "Windows 2019 Server"
+		WinVersion = "Windows Server 2019"
 	} else if OsVersion[0] == 10 && OsVersion[1] == 0 && OsVersion[2] == 0x0000001 && OsVersion[4] >= 22000 {
 		WinVersion = "Windows 11"
-	} else if OsVersion[0] == 10 && OsVersion[1] == 0 && OsVersion[2] != 0x0000001 {
-		WinVersion = "Windows 2016 Server"
+	} else if OsVersion[0] == 10 && OsVersion[1] == 0 && OsVersion[2] != 0x0000001 && OsVersion[4] == 14393 {
+		WinVersion = "Windows Server 2016"
 	} else if OsVersion[0] == 10 && OsVersion[1] == 0 && OsVersion[2] == 0x0000001 {
 		WinVersion = "Windows 10"
 	} else if OsVersion[0] == 6 && OsVersion[1] == 3 && OsVersion[2] != 0x0000001 {
